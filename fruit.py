@@ -1,8 +1,6 @@
 import random
 import pygame as pg
-
 from constants import Color
-from snake import Body
 
 
 class Fruit:

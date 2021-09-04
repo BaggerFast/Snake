@@ -24,12 +24,11 @@ class Game:
         self.snake.control(event)
 
     def draw_to_screen(self):
-
-        # for i in range((self.width // self.cell_size)):
-        #     pg.draw.line(self.surface, Color.white, (i * self.cell_size, 0), (i * self.cell_size, self.height), 1)
-        # for i in range((self.height // self.cell_size)):
-        #     pg.draw.line(self.surface, Color.white, (0, i * self.cell_size), (self.width, i * self.cell_size), 1)
         self.surface.fill(Color.black)
+        for i in range((self.width // self.cell_size)):
+            pg.draw.line(self.surface, Color.white, (i * self.cell_size, 0), (i * self.cell_size, self.height), 1)
+        for i in range((self.height // self.cell_size)):
+            pg.draw.line(self.surface, Color.white, (0, i * self.cell_size), (self.width, i * self.cell_size), 1)
         self.snake.draw()
         self.fruit.draw()
 
