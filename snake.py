@@ -1,6 +1,7 @@
+import copy
+import dataclasses
 import random
 import sys
-from copy import copy
 import pygame as pg
 from constants import Color
 
@@ -27,49 +28,43 @@ class KeyBoard:
         return current
 
 
+@dataclasses.dataclass
+class Cord:
+    x: int
+    y: int
+
+
 class Snake:
     def __init__(self, game):
         self.game = game
         self.head = pg.transform.scale(pg.image.load('images/head.png'), (40, 40))
-        self.x, self.y = random.randint(0, 45) * self.game.cell_size, random.randint(0, 30) * self.game.cell_size
         self.dir = Direction((0, 0))
-        self.body = [[self.x, self.y]]
+        self.body: list[Cord] = [Cord(x=random.randint(0, 45) * self.game.cell_size,
+                                      y=random.randint(0, 30) * self.game.cell_size)]
         self.upgrade = False
 
     def draw(self):
-        self.game.surface.blit(self.head, (self.body[0][0]-5, self.body[0][1]-10))
+        print(self.body[0])
+        self.game.surface.blit(self.head, (self.body[0].x - 5, self.body[0].y - 10))
         for body in self.body[1:]:
-            pg.draw.rect(self.game.surface, color=Color.yellow, rect=(body[0], body[1], self.game.cell_size, self.game.cell_size), width=5)
-
-    @property
-    def head_(self):
-        return self.body[0]
-
-    @property
-    def nail(self):
-        return self.body[1:]
+            pg.draw.rect(self.game.surface, color=Color.yellow,
+                         rect=(body.x, body.y, self.game.cell_size, self.game.cell_size), width=5)
 
     def logic(self):
-        last = [row[:] for row in self.body]
+        last = copy.copy(self.body)
 
-        self.head_[0], self.head_[1] = (self.head_[0] + self.dir.velocity[0] * self.game.cell_size) % self.game.width, \
-                                       (self.head_[1] + self.dir.velocity[1] * self.game.cell_size) % self.game.height
+        self.body[0] = Cord(x=(self.body[0].x + self.dir.velocity[0] * self.game.cell_size) % self.game.width,
+                            y=(self.body[0].y + self.dir.velocity[1] * self.game.cell_size) % self.game.height)
 
-        self.body = [self.body[0]] + last[:len(last)-1]
+        self.body = [self.body[0]] + last[:len(last) - 1]
 
         if self.upgrade:
             self.body.append(last[-1])
             self.upgrade = False
 
     def check_death(self):
-        if self.head_ in self.nail:
-            pg.time.delay(10000)
+        if self.body[0] in self.body[1:]:
             sys.exit(0)
 
     def control(self, event: pg.event):
         self.dir = KeyBoard.check(event, self.dir)
-        print(self.dir.key, KeyBoard.check(event, self.dir).key)
-
-
-
-

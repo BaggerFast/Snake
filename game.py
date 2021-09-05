@@ -11,6 +11,7 @@ class Game:
     surface = pg.display.set_mode(resolution)
     pg.display.set_caption('Snake')
     fon = pg.image.load('images/fon.jpg').convert()
+    pg.display.set_icon(pg.transform.scale(pg.image.load('images/head.png'), (70, 70)))
     __FPS = 20
     game_over = False
     time: pg.time = pg.time.Clock()
