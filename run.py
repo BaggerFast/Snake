@@ -4,8 +4,9 @@ import pygame as pg
 
 def main():
     pg.display.init()
+    pg.font.init()
     game = Game()
-    game.start()
+    game.main_loop()
 
 
 if __name__ == '__main__':

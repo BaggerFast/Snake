@@ -1,7 +1,6 @@
 import copy
 import dataclasses
 import random
-import sys
 import pygame as pg
 from constants import Color
 
@@ -39,18 +38,17 @@ class Snake:
         self.game = game
         self.head = pg.transform.scale(pg.image.load('images/head.png'), (40, 40))
         self.dir = Direction((0, 0))
-        self.body: list[Cord] = [Cord(x=random.randint(0, 45) * self.game.cell_size,
-                                      y=random.randint(0, 30) * self.game.cell_size)]
+        self.body: list[Cord] = [Cord(x=random.randint(0, 35) * self.game.cell_size,
+                                      y=random.randint(0, 20) * self.game.cell_size)]
         self.upgrade = False
 
-    def draw(self):
-        print(self.body[0])
+    def process_draw(self):
         self.game.surface.blit(self.head, (self.body[0].x - 5, self.body[0].y - 10))
         for body in self.body[1:]:
             pg.draw.rect(self.game.surface, color=Color.yellow,
                          rect=(body.x, body.y, self.game.cell_size, self.game.cell_size), width=5)
 
-    def logic(self):
+    def process_logic(self):
         last = copy.copy(self.body)
 
         self.body[0] = Cord(x=(self.body[0].x + self.dir.velocity[0] * self.game.cell_size) % self.game.width,
@@ -64,7 +62,8 @@ class Snake:
 
     def check_death(self):
         if self.body[0] in self.body[1:]:
-            sys.exit(0)
+            self.game.scene = self.game.Scenes.game_over(self.game)
+            self.game.process_all_logic()
 
-    def control(self, event: pg.event):
+    def process_event(self, event: pg.event):
         self.dir = KeyBoard.check(event, self.dir)
