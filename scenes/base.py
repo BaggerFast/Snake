@@ -6,7 +6,7 @@ class Scene:
 
     def __init__(self, game):
         self.game = game
-        self.screen: pg.Surface = self.game.surface
+        self.surface: pg.Surface = self.game.surface
 
     def process_event(self, event: pg.event.Event) -> None:
         for item in self.objects:

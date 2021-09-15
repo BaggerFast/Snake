@@ -1,7 +1,7 @@
-from base_scene import Scene
-from fruit import Fruit
-from snake import Snake
+from objects import Fruit, Snake
 import pygame as pg
+
+from scenes.base import Scene
 
 
 class Main(Scene):

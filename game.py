@@ -1,12 +1,7 @@
 import sys
-
 import pygame as pg
-
-from GameOverScene import GameOver
-from MainScene import Main
-from PauseScene import Pause
-from base_scene import Scene
 from constants import Color
+from scenes import *
 
 
 class Game:

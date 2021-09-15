@@ -1,10 +1,12 @@
 import random
 import pygame as pg
-from snake import Cord
-from text import Text
+
+from objects.base import Base
+from objects.snake import Cord
+from objects.text import Text
 
 
-class Fruit:
+class Fruit(Base):
     def __init__(self, game):
         self.game = game
         self.score = 0
@@ -18,10 +20,7 @@ class Fruit:
 
     def process_draw(self):
         self.game.surface.blit(self.img, (self.cord.x, self.cord.y))
-        self.text.draw()
-
-    def process_event(self, event):
-        ...
+        self.text.process_draw()
 
     def process_logic(self):
         if self.cord in self.game.scene.snake.body:

@@ -3,6 +3,7 @@ import dataclasses
 import random
 import pygame as pg
 from constants import Color
+from objects.base import Base
 
 
 class Direction:
@@ -33,7 +34,7 @@ class Cord:
     y: int
 
 
-class Snake:
+class Snake(Base):
     def __init__(self, game):
         self.game = game
         self.head = pg.transform.scale(pg.image.load('images/head.png'), (40, 40))

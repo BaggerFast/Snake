@@ -1,7 +1,9 @@
 import pygame as pg
 
+from objects.base import Base
 
-class Text:
+
+class Text(Base):
     def __init__(self, game, text: str = "", size: int = 0, rect: pg.Rect = pg.rect.Rect(0, 0, 0, 0),
                  color=pg.Color(255, 255, 255), font='fonts/main.ttf'):
         self.game = game
@@ -34,5 +36,5 @@ class Text:
         self.rect = self.surface.get_rect()
         self.rect.topleft = topleft
 
-    def draw(self) -> None:
+    def process_draw(self) -> None:
         self.game.surface.blit(self.surface, self.rect)
