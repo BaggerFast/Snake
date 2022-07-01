@@ -1,39 +1,37 @@
+import sys
 import pygame as pg
 
+from objects import Objects
+from misc import IGenericObject
 
-class Scene:
-    objects = []
+
+class Scene(IGenericObject):
 
     def __init__(self, game):
         self.game = game
-        self.surface: pg.Surface = self.game.surface
+        self._objects = Objects()
+        self._create_objects()
+
+    # region Public
+
+    # region Implementation of IGenericObject
 
     def process_event(self, event: pg.event.Event) -> None:
-        for item in self.objects:
-            item.process_event(event)
-        self.additional_event_check(event)
-
-    def create_obj(self) -> list:
-        pass
+        self._objects.process_event(event)
 
     def process_logic(self) -> None:
-        for item in self.objects:
-            item.process_logic()
-        self.additional_logic()
+        self._objects.process_logic()
 
-    def process_draw(self) -> None:
-        for item in self.objects:
-            item.process_draw()
-        self.additional_draw()
+    def process_draw(self, screen: pg.Surface) -> None:
+        self._objects.process_draw(screen)
 
-    def additional_event_check(self, event: pg.event.Event) -> None:
-        ...
+    # endregion
 
-    def additional_logic(self) -> None:
+    # endregion
+
+    # region Private
+
+    def _create_objects(self) -> None:
         pass
 
-    def additional_draw(self) -> None:
-        ...
-
-    def additional(self):
-        ...
+    # endregion

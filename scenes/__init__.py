@@ -1,3 +1,3 @@
-from scenes.game_over import GameOver
-from scenes.main import Main
-from scenes.pause import Pause
+from .game_over import GameOverScene
+from .main import MainScene
+from .pause import PauseScene

@@ -1,30 +1,27 @@
-import random
 import pygame as pg
 
-from objects.base import Base
-from objects.snake import Cord
-from objects.text import Text
+from settings import CELL_SIZE, Color
+from misc import get_random_coord, Coord, IDrawable
 
 
-class Fruit(Base):
-    def __init__(self, game):
-        self.game = game
-        self.score = 0
-        self.cord = Cord(*self.random_cord())
-        self.text = Text(self.game, f'Length: {self.score}', 50, pg.rect.Rect(10, 10, 30, 30))
-        self.img = pg.image.load('images/apple.png')
+class Fruit(IDrawable):
 
-    def random_cord(self):
-        return [(random.randint(0, 35) * self.game.cell_size) % self.game.width,
-                (random.randint(0, 20) * self.game.cell_size) % self.game.height]
+    def __init__(self):
+        self.__coord = get_random_coord()
 
-    def process_draw(self):
-        self.game.surface.blit(self.img, (self.cord.x, self.cord.y))
-        self.text.process_draw()
+    # region Public
 
-    def process_logic(self):
-        if self.cord in self.game.scene.snake.body:
-            self.game.scene.snake.upgrade = True
-            self.cord = Cord(*self.random_cord())
-            self.score += 1
-            self.text.text = f'Length: {self.score}'
+    # region Implementation of IDrawable
+
+    def process_draw(self, screen: pg.Surface) -> None:
+        pg.draw.rect(screen, color=Color.RED, rect=(self.__coord.x, self.__coord.y, CELL_SIZE, CELL_SIZE))
+
+    # endregion
+
+    def has_collision(self, snake_body: list[Coord]) -> bool:
+        status = self.__coord in snake_body
+        if status:
+            self.__coord = get_random_coord()
+        return status
+
+    # endregion

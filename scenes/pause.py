@@ -1,17 +1,25 @@
 import pygame as pg
 
-from scenes.base import Scene
+from settings import PathCtrl
+from .base import Scene
 
 
-class Pause(Scene):
+class PauseScene(Scene):
 
     def __init__(self, game):
-
         super().__init__(game)
-        self.fon = pg.image.load('images/pause.png')
-        self.fon_rect = self.fon.get_rect(center=self.surface.get_rect().center)
-        self.surface.blit(self.fon, self.fon_rect)
+        self.fon = pg.image.load(PathCtrl.get_img_path('pause.png'))
+        self.fon_rect = self.fon.get_rect(center=self.game.screen.get_rect().center)
 
-    def additional_event_check(self, event: pg.event.Event) -> None:
+    # region Public
+
+    def additional_draw(self, screen: pg.Surface) -> None:
+        self.game.last_scene.process_draw(screen)
+        self.game.last_scene.additional_draw(screen)
+        screen.blit(self.fon, self.fon_rect)
+
+    def additional_event(self, event: pg.event.Event) -> None:
         if event.type == pg.KEYDOWN and (event.key == pg.K_ESCAPE or event.key == pg.K_SPACE):
             self.game.scene = self.game.last_scene
+
+    # endregion

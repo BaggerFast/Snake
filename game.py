@@ -1,55 +1,55 @@
-import sys
 import pygame as pg
-from constants import Color
-from scenes import *
+import sys
+
+from scenes import MainScene
+from settings import Color, FPS, GAME_RESOLUTION, PathCtrl
 
 
 class Game:
-    cell_size = 28
-    resolution = width, height = 35 * cell_size, 20 * cell_size
-    surface = pg.display.set_mode(resolution)
-    pg.display.set_caption('Snake')
-    fon = pg.image.load('images/fon.jpg')
-    pg.display.set_icon(pg.transform.scale(pg.image.load('images/head.png'), (70, 70)))
 
-    class Scenes:
-        main = Main
-        pause = Pause
-        game_over = GameOver
+    # region Pygame setup
+
+    pg.display.init()
+    pg.font.init()
+    pg.display.set_caption('Snake')
+    pg.display.set_icon(pg.transform.scale(pg.image.load(PathCtrl.get_img_path('logo.png')), (100, 100)))
+
+    # endregion
 
     def __init__(self):
-        self.scene: Scene = Main(self)
-        self.__game_over = False
-        self.__FPS = 20
-        self.__clock = pg.time.Clock()
+        self.screen = pg.display.set_mode(GAME_RESOLUTION)
+        self.scene = MainScene(self)
         self.last_scene = self.scene
+        self.__clock = pg.time.Clock()
 
-    def main_loop(self) -> None:
-        while not self.__game_over:
-            self.__process_all_events()
-            self.process_all_logic()
-            self.process_all_draw()
-            self.scene.additional()
-            self.__clock.tick(self.__FPS)
-
-    def process_all_logic(self):
-        self.scene.process_logic()
-
-    def process_all_draw(self):
-        if type(self.scene) == self.Scenes.main:
-            self.surface.blit(self.fon, (0, 0))
-            for i in range((self.width // self.cell_size)):
-                pg.draw.line(self.surface, Color.gray, (i * self.cell_size, 0), (i * self.cell_size,
-                                                                                 self.height), 1)
-            for i in range((self.height // self.cell_size)):
-                pg.draw.line(self.surface, Color.gray, (0, i * self.cell_size), (self.width,
-                                                                                 i * self.cell_size), 1)
-
-        self.scene.process_draw()
-        pg.display.flip()
+    # region Private
 
     def __process_all_events(self) -> None:
         for event in pg.event.get():
-            self.scene.process_event(event)
             if event.type == pg.QUIT:
                 sys.exit(0)
+            self.scene.process_event(event)
+            self.scene.additional_event(event)
+
+    def __process_all_draw(self) -> None:
+        self.screen.fill(Color.BLACK)
+        self.scene.process_draw(self.screen)
+        self.scene.additional_draw(self.screen)
+        pg.display.flip()
+
+    def __process_all_logic(self) -> None:
+        self.scene.process_logic()
+        self.scene.additional_logic()
+
+    # endregion
+
+    # region Public
+
+    def main_loop(self) -> None:
+        while True:
+            self.__process_all_logic()
+            self.__process_all_events()
+            self.__process_all_draw()
+            self.__clock.tick(FPS)
+
+    # endregion

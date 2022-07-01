@@ -1,40 +1,41 @@
 import pygame as pg
 
-from objects.base import Base
+from settings import Color, PathCtrl
+from misc.interfaces import IDrawable
 
 
-class Text(Base):
-    def __init__(self, game, text: str = "", size: int = 0, rect: pg.Rect = pg.rect.Rect(0, 0, 0, 0),
-                 color=pg.Color(255, 255, 255), font='fonts/main.ttf'):
-        self.game = game
-        self.rect = rect
-        self.__pos = rect
-        self.size = size
+class Text(IDrawable):
+
+    def __init__(self, text: str = "", size: int = 0, rect: pg.rect = pg.rect.Rect(0, 0, 0, 0), color=Color.WHITE,
+                 font=PathCtrl.get_asset_path('fonts/main.ttf')):
+        self.__surface: pg.Surface
+        self.__size: int = size
         self.__color = color
-        self.font = pg.font.Font(font, self.size)
-        self.__text: str
-        self.text = text
-        self.surface: pg.Surface
+        self.__rect: pg.rect = rect
+        self.__font = pg.font.Font(font, self.__size)
 
-    @property
-    def pos(self):
-        return self.__pos
+        self.__text: str = ""
+        self.text = text
+
+    # region Public
+
+    # region Implementation of IDrawable
+
+    def process_draw(self, screen: pg.Surface) -> None:
+        screen.blit(self.__surface, self.rect)
+
+    # endregion
 
     @property
     def text(self):
         return self.__text
 
-    @property
-    def color(self):
-        return self.color
-
     @text.setter
     def text(self, text: str):
         self.__text = text if text else self.__text
-        self.surface = self.font.render(self.__text, False, self.__color)
-        topleft = self.rect.topleft
-        self.rect = self.surface.get_rect()
-        self.rect.topleft = topleft
+        self.__surface = self.__font.render(self.__text, False, self.__color)
+        top_left = self.__rect.topleft
+        self.rect = self.__surface.get_rect()
+        self.rect.topleft = top_left
 
-    def process_draw(self) -> None:
-        self.game.surface.blit(self.surface, self.rect)
+    # endregion
