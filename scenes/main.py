@@ -1,7 +1,7 @@
 import pygame as pg
 
-from .base import Scene
 from objects import Fruit, Snake, Text
+from .base import Scene
 
 
 class MainScene(Scene):

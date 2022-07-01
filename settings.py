@@ -1,8 +1,8 @@
 import os
-import pygame as pg
-
 from abc import ABC
 from typing import Final
+import pygame as pg
+
 
 CELL_SIZE: Final = 50
 FPS: Final = 10

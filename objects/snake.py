@@ -1,8 +1,8 @@
+from copy import deepcopy
 import pygame as pg
 
-from copy import deepcopy
 from misc import IGenericObject, Coord, get_random_coord
-from settings import Color, CELL_SIZE, GAME_WIDTH, GAME_HEIGHT, Keyboard
+from settings import Color, CELL_SIZE, GAME_WIDTH, GAME_HEIGHT
 from .direction_parser import DirectionParser
 
 

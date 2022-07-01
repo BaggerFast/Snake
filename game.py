@@ -1,5 +1,5 @@
-import pygame as pg
 import sys
+import pygame as pg
 
 from scenes import MainScene
 from settings import Color, FPS, GAME_RESOLUTION, PathCtrl

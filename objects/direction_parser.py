@@ -1,7 +1,7 @@
-import pygame as pg
-
 from copy import copy
 from random import choice
+import pygame as pg
+
 from settings import Keyboard
 from misc import IEventful, ILogical, Direction
 
@@ -26,10 +26,10 @@ class DirectionParser(IEventful, ILogical):
     def process_event(self, event: pg.event.Event) -> None:
         if event.type != pg.KEYDOWN or not self.__keyboard_activate:
             return
-        for key in self.direction:
+        for key, direction in self.direction.items():
             if event.key in key:
                 if key != self.__dir.key:
-                    self.__dir = self.direction[key]
+                    self.__dir = direction
                     self.__keyboard_activate = False
                     return
 

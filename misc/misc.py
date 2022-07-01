@@ -1,7 +1,7 @@
-import pygame as pg
 import dataclasses
-
 from random import randint
+import pygame as pg
+
 from settings import CELL_SIZE, GAME_WIDTH, GAME_HEIGHT
 
 
@@ -19,5 +19,3 @@ class Direction:
 
 def get_random_coord() -> Coord:
     return Coord(randint(0, GAME_WIDTH - 1) * CELL_SIZE, randint(0, GAME_HEIGHT - 1) * CELL_SIZE)
-
-

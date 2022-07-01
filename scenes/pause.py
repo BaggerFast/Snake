@@ -19,7 +19,7 @@ class PauseScene(Scene):
         screen.blit(self.fon, self.fon_rect)
 
     def additional_event(self, event: pg.event.Event) -> None:
-        if event.type == pg.KEYDOWN and (event.key == pg.K_ESCAPE or event.key == pg.K_SPACE):
+        if event.type == pg.KEYDOWN and event.key in (pg.K_ESCAPE, pg.K_SPACE):
             self.game.scene = self.game.last_scene
 
     # endregion

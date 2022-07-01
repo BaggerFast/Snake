@@ -1,5 +1,5 @@
-import pygame as pg
 from abc import ABC, abstractmethod
+import pygame as pg
 
 
 class IDrawable(ABC):
