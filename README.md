@@ -39,4 +39,4 @@ Make a copy of game "snake" on Python with library Pygame
 ## Download:
 | Windows 7 - 11                                                                                   |
 |--------------------------------------------------------------------------------------------------|
-| [Download - (**exe**)](https://github.com/BaggerFast/Tetris/releases/latest/download/Snake.exe) |
+| [Download - (**exe**)](https://github.com/BaggerFast/Snake/releases/latest/download/Snake.exe) |
