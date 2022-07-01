@@ -34,9 +34,9 @@ Make a copy of game "snake" on Python with library Pygame
 5. Run file run.py
 
 ## Game demo:
-<img src="assets/gamePlay.gif" width="250" height="350" alt="gameplay"/>
+<img src="assets/gameplay.gif" width="350" height="350" alt="gameplay"/>
 
 ## Download:
 | Windows 7 - 11                                                                                   |
 |--------------------------------------------------------------------------------------------------|
-| [Download - (**exe**)](https://github.com/BaggerFast/Tetris/releases/latest/download/tetris.exe) |
+| [Download - (**exe**)](https://github.com/BaggerFast/Tetris/releases/latest/download/Snake.exe) |
