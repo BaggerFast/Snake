@@ -2,8 +2,9 @@
 
 ![Language](https://img.shields.io/badge/Language-Python3.9-yellow.svg?style=flat)
 
+
 ### Clickable:
-[![BUILD-STATUS](https://github.com/BaggerFast/Snake/workflows/Ci/badge.svg)](https://github.com/BaggerFast/Snake/actions?query=workflow%3Aci)
+[![BUILD-STATUS](https://github.com/BaggerFast/Snake/workflows/CI/badge.svg)](https://github.com/BaggerFast/Snake/actions?query=workflow%3Aci)
 [![Library](https://img.shields.io/badge/Library-pygame-green.svg?style=flat)](https://www.pygame.org/docs/)
 
 ### The purpose:
