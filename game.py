@@ -12,7 +12,7 @@ class Game:
     pg.display.init()
     pg.font.init()
     pg.display.set_caption('Snake')
-    pg.display.set_icon(pg.transform.scale(pg.image.load(PathCtrl.get_img_path('logo.png')), (100, 100)))
+    pg.display.set_icon(pg.transform.scale(pg.image.load(PathCtrl.get_img_path('logo.png')), (90, 90)))
 
     # endregion
 
