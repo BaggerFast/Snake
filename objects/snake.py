@@ -11,7 +11,7 @@ class Snake(IGenericObject):
     def __init__(self):
         self.__dir_parser = DirectionParser()
         self.__body: list[Coord] = [get_random_coord()]
-        self.__update_status: bool = False
+        self.__update_status = False
 
     # region Public
 

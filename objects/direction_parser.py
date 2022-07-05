@@ -39,7 +39,7 @@ class DirectionParser(IEventful, ILogical):
     # endregion
 
     @property
-    def velocity(self):
+    def velocity(self) -> tuple[int, int]:
         return copy(self.__dir.velocity)
 
     def get_random_dir(self) -> Direction:

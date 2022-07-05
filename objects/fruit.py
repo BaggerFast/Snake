@@ -19,8 +19,7 @@ class Fruit(IDrawable):
     # endregion
 
     def has_collision(self, snake_body: list[Coord]) -> bool:
-        status = self.__coord in snake_body
-        if status:
+        if status := self.__coord in snake_body:
             self.__coord = get_random_coord()
         return status
 

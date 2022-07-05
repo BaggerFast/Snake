@@ -1,4 +1,4 @@
-# Project Snake
+# PySnake
 
 ![Language](https://img.shields.io/badge/Language-Python3.9-yellow.svg?style=flat)
 
